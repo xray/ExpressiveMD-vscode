@@ -1,0 +1,166 @@
+{
+  "name": "expressivemd",
+  "displayName": "ExpressiveMD",
+  "description": "Syntax highlighting and live preview for ExpressiveMD templates",
+  "version": "0.1.0",
+  "publisher": "expressivemd",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:expressivemd",
+    "onWebviewPanel:expressivemd.preview"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "expressivemd",
+        "aliases": [
+          "ExpressiveMD",
+          "emd"
+        ],
+        "extensions": [
+          ".emd"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "expressivemd",
+        "scopeName": "text.html.expressivemd",
+        "path": "./syntaxes/emd.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.frontmatter": "yaml",
+          "text.html.markdown": "markdown"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "expressivemd.showPreview",
+        "title": "Open Preview",
+        "category": "ExpressiveMD",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "expressivemd.showPreviewToSide",
+        "title": "Open Preview to the Side",
+        "category": "ExpressiveMD",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "expressivemd.selectPropsFile",
+        "title": "Select Props File...",
+        "category": "ExpressiveMD",
+        "icon": "$(json)"
+      },
+      {
+        "command": "expressivemd.clearPropsFile",
+        "title": "Clear Props File",
+        "category": "ExpressiveMD"
+      },
+      {
+        "command": "expressivemd.refreshPreview",
+        "title": "Refresh Preview",
+        "category": "ExpressiveMD",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "expressivemd.showPreviewToSide",
+          "when": "editorLangId == expressivemd",
+          "group": "navigation"
+        },
+        {
+          "command": "expressivemd.refreshPreview",
+          "when": "activeWebviewPanelId == 'expressivemd.preview'",
+          "group": "navigation"
+        },
+        {
+          "command": "expressivemd.selectPropsFile",
+          "when": "activeWebviewPanelId == 'expressivemd.preview'",
+          "group": "navigation"
+        }
+      ],
+      "webview/context": [
+        {
+          "command": "expressivemd.selectPropsFile",
+          "when": "webviewId == 'expressivemd.preview'"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "expressivemd.showPreview",
+          "when": "editorLangId == expressivemd"
+        },
+        {
+          "command": "expressivemd.showPreviewToSide",
+          "when": "editorLangId == expressivemd"
+        },
+        {
+          "command": "expressivemd.selectPropsFile",
+          "when": "activeWebviewPanelId == 'expressivemd.preview'"
+        },
+        {
+          "command": "expressivemd.clearPropsFile",
+          "when": "activeWebviewPanelId == 'expressivemd.preview'"
+        },
+        {
+          "command": "expressivemd.refreshPreview",
+          "when": "activeWebviewPanelId == 'expressivemd.preview'"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "expressivemd.showPreview",
+        "key": "shift+ctrl+v",
+        "mac": "shift+cmd+v",
+        "when": "editorLangId == expressivemd"
+      },
+      {
+        "command": "expressivemd.showPreviewToSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "editorLangId == expressivemd"
+      }
+    ],
+    "configuration": {
+      "title": "ExpressiveMD",
+      "properties": {
+        "expressivemd.emdPath": {
+          "type": "string",
+          "default": "emd",
+          "description": "Path to the emd binary"
+        },
+        "expressivemd.preview.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh preview when the document changes"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.36",
+    "marked": "^11.0.0"
+  }
+}

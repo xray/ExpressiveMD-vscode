@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+
+# Compiled webview
+media/index.js
+media/index.js.map
+
+# VS Code extension package
+*.vsix
+
+# TypeScript
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional npm cache
+.npm
+
+# Environment
+.env
+.env.local

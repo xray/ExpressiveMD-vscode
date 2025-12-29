@@ -1,0 +1,248 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "ExpressiveMD",
+  "scopeName": "text.html.expressivemd",
+  "patterns": [
+    { "include": "#frontmatter" },
+    { "include": "#comment" },
+    { "include": "#raw-block" },
+    { "include": "#control-if" },
+    { "include": "#control-for" },
+    { "include": "#control-end" },
+    { "include": "#control-else" },
+    { "include": "#interpolation" },
+    { "include": "text.html.markdown" }
+  ],
+  "repository": {
+    "frontmatter": {
+      "begin": "\\A(---)",
+      "end": "^(---)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.frontmatter.begin.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.frontmatter.end.expressivemd" }
+      },
+      "name": "meta.frontmatter.expressivemd",
+      "patterns": [
+        { "include": "#frontmatter-inbound" },
+        { "include": "#frontmatter-include" },
+        { "include": "#frontmatter-plugin" },
+        { "include": "#frontmatter-type" }
+      ]
+    },
+    "frontmatter-inbound": {
+      "match": "^(inbound)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(:)\\s*(.+?)(?:\\s+(defaults\\s+to)\\s+(.+))?$",
+      "captures": {
+        "1": { "name": "keyword.control.inbound.expressivemd" },
+        "2": { "name": "variable.parameter.expressivemd" },
+        "3": { "name": "punctuation.separator.expressivemd" },
+        "4": {
+          "name": "support.type.expressivemd",
+          "patterns": [{ "include": "#frontmatter-type" }]
+        },
+        "5": { "name": "keyword.control.defaults.expressivemd" },
+        "6": {
+          "patterns": [
+            { "include": "#string-literal" },
+            { "include": "#number-literal" },
+            { "include": "#boolean-literal" }
+          ]
+        }
+      }
+    },
+    "frontmatter-include": {
+      "match": "^(include)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(:)\\s*(.+)$",
+      "captures": {
+        "1": { "name": "keyword.control.include.expressivemd" },
+        "2": { "name": "entity.name.type.expressivemd" },
+        "3": { "name": "punctuation.separator.expressivemd" },
+        "4": { "name": "string.unquoted.path.expressivemd" }
+      }
+    },
+    "frontmatter-plugin": {
+      "match": "^(plugin)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(:)\\s*(.+)$",
+      "captures": {
+        "1": { "name": "keyword.control.plugin.expressivemd" },
+        "2": { "name": "entity.name.function.expressivemd" },
+        "3": { "name": "punctuation.separator.expressivemd" },
+        "4": { "name": "string.unquoted.path.expressivemd" }
+      }
+    },
+    "frontmatter-type": {
+      "patterns": [
+        {
+          "match": "\\b(string|int|float|bool)\\b",
+          "name": "support.type.primitive.expressivemd"
+        },
+        {
+          "match": "\\b(list)\\[",
+          "captures": {
+            "1": { "name": "support.type.list.expressivemd" }
+          }
+        },
+        {
+          "match": "\\b(map)\\{",
+          "captures": {
+            "1": { "name": "support.type.map.expressivemd" }
+          }
+        },
+        {
+          "match": "\\?",
+          "name": "keyword.operator.optional.expressivemd"
+        }
+      ]
+    },
+    "comment": {
+      "begin": "(\\$\\{)(//)",
+      "end": "(\\})",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "punctuation.definition.comment.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "name": "comment.block.expressivemd",
+      "contentName": "comment.block.expressivemd"
+    },
+    "raw-block": {
+      "begin": "(\\$\\{)(raw)(\\})",
+      "end": "(\\$\\{)(endraw)(\\})",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.raw.expressivemd" },
+        "3": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.endraw.expressivemd" },
+        "3": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "name": "string.unquoted.raw.expressivemd"
+    },
+    "control-if": {
+      "begin": "(\\$\\{)(if)\\b",
+      "end": "(\\})",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.if.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "name": "meta.control.if.expressivemd",
+      "patterns": [{ "include": "#expression-content" }]
+    },
+    "control-for": {
+      "begin": "(\\$\\{)(for)\\b",
+      "end": "(\\})",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.for.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "name": "meta.control.for.expressivemd",
+      "patterns": [
+        {
+          "match": "\\b(in)\\b",
+          "name": "keyword.control.in.expressivemd"
+        },
+        { "include": "#expression-content" }
+      ]
+    },
+    "control-else": {
+      "match": "(\\$\\{)(else(?:if)?)(\\s[^}]*)?(\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.else.expressivemd" },
+        "3": {
+          "patterns": [{ "include": "#expression-content" }]
+        },
+        "4": { "name": "punctuation.definition.expression.end.expressivemd" }
+      }
+    },
+    "control-end": {
+      "match": "(\\$\\{)(end)(\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" },
+        "2": { "name": "keyword.control.end.expressivemd" },
+        "3": { "name": "punctuation.definition.expression.end.expressivemd" }
+      }
+    },
+    "interpolation": {
+      "begin": "(\\$\\{)",
+      "end": "(\\})",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.expression.begin.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.expression.end.expressivemd" }
+      },
+      "name": "meta.interpolation.expressivemd",
+      "patterns": [{ "include": "#expression-content" }]
+    },
+    "expression-content": {
+      "patterns": [
+        { "include": "#pipe" },
+        { "include": "#string-literal" },
+        { "include": "#number-literal" },
+        { "include": "#boolean-literal" },
+        { "include": "#operator" },
+        { "include": "#property-access" },
+        { "include": "#index-access" },
+        { "include": "#identifier" }
+      ]
+    },
+    "pipe": {
+      "match": "(\\|)\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*(\\()",
+      "captures": {
+        "1": { "name": "keyword.operator.pipe.expressivemd" },
+        "2": { "name": "entity.name.function.formatter.expressivemd" },
+        "3": { "name": "punctuation.definition.arguments.begin.expressivemd" }
+      }
+    },
+    "string-literal": {
+      "match": "\"[^\"]*\"",
+      "name": "string.quoted.double.expressivemd"
+    },
+    "number-literal": {
+      "match": "\\b\\d+(\\.\\d+)?\\b",
+      "name": "constant.numeric.expressivemd"
+    },
+    "boolean-literal": {
+      "match": "\\b(true|false|null)\\b",
+      "name": "constant.language.expressivemd"
+    },
+    "operator": {
+      "match": "(==|!=|<=|>=|<|>|&&|\\|\\||\\+|-|\\*|/|%|!)",
+      "name": "keyword.operator.expressivemd"
+    },
+    "property-access": {
+      "match": "(\\.)[a-zA-Z_][a-zA-Z0-9_]*",
+      "captures": {
+        "1": { "name": "punctuation.accessor.expressivemd" }
+      }
+    },
+    "index-access": {
+      "begin": "(\\[)",
+      "end": "(\\])",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.index.begin.expressivemd" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.index.end.expressivemd" }
+      },
+      "patterns": [
+        { "include": "#number-literal" },
+        { "include": "#identifier" }
+      ]
+    },
+    "identifier": {
+      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b",
+      "name": "variable.other.expressivemd"
+    }
+  }
+}
