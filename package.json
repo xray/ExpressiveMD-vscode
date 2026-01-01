@@ -26,7 +26,11 @@
         "extensions": [
           ".emd"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/edown_light.svg",
+          "dark": "./icons/edown_dark.svg"
+        }
       }
     ],
     "grammars": [
