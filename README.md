@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="ExpressiveMD.svg" alt="ExpressiveMD" width="400">
+</p>
+
 # ExpressiveMD for VS Code
 
 Syntax highlighting and live preview for [ExpressiveMD](https://github.com/xray/expressivemd) templates.
@@ -83,4 +87,4 @@ npm run package
 
 ## License
 
-This is free and unencumbered software released into the public domain. See [UNLICENSE](LICENSE) for details.
+This is free and unencumbered software released into the public domain. See [LICENSE](LICENSE) for details.
