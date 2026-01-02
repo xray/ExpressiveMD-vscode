@@ -3,7 +3,7 @@
   "displayName": "ExpressiveMD",
   "description": "Syntax highlighting and live preview for ExpressiveMD templates",
   "version": "0.1.0",
-  "publisher": "xray",
+  "publisher": "jakelamb",
   "license": "Unlicense",
   "repository": {
     "type": "git",
