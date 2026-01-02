@@ -3,17 +3,24 @@
   "displayName": "ExpressiveMD",
   "description": "Syntax highlighting and live preview for ExpressiveMD templates",
   "version": "0.1.0",
-  "publisher": "expressivemd",
+  "publisher": "xray",
+  "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xray/expressivemd-vscode"
+  },
+  "homepage": "https://github.com/xray/expressivemd-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/xray/expressivemd-vscode/issues"
+  },
+  "icon": "icons/icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Programming Languages"
   ],
-  "activationEvents": [
-    "onLanguage:expressivemd",
-    "onWebviewPanel:expressivemd.preview"
-  ],
+  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "languages": [
@@ -155,11 +162,12 @@
   "scripts": {
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",
-    "package": "vsce package"
+    "package": "npx vsce package"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.7.1",
     "esbuild": "^0.19.0",
     "typescript": "^5.3.0"
   },
