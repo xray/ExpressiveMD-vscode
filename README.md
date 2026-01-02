@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ExpressiveMD.svg" alt="ExpressiveMD" width="400">
+  <img src="ExpressiveMD.png" alt="ExpressiveMD" width="400">
 </p>
 
 # ExpressiveMD for VS Code
