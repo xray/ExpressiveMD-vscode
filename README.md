@@ -5,7 +5,7 @@ Syntax highlighting and live preview for [ExpressiveMD](https://github.com/xray/
 ## Features
 
 - **Syntax highlighting** for `.emd` files with support for:
-  - YAML frontmatter
+  - Frontmatter declarations (`inbound`, `include`, `plugin`)
   - Control structures (`${if}`, `${for}`, `${end}`)
   - Variable interpolation (`${variable}`)
   - Comments (`${// comment}`)

@@ -46,7 +46,6 @@
         "scopeName": "text.html.expressivemd",
         "path": "./syntaxes/emd.tmLanguage.json",
         "embeddedLanguages": {
-          "meta.embedded.block.frontmatter": "yaml",
           "text.html.markdown": "markdown"
         }
       }
